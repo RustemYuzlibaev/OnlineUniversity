@@ -1,0 +1,57 @@
+@import 'reset';
+
+@mixin flex() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  @include flex();
+  height: 100%;
+}
+
+.Register {
+  width: 560px;
+  height: 460px;
+  border: #008ed6 3px solid;
+  @include flex();
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+input {
+  &[type='text'],
+  &[type='password'],
+  &[type='email'] {
+    background-color: #333;
+    border: 1px solid #008ed6;
+    color: inherit;
+    width: 350px;
+    height: 50px;
+    font-size: 20px;
+    padding-left: 7px;
+  }
+}
+
+input[type='submit'] {
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  color: inherit;
+  border: 1px solid #008ed6;
+  background: #333;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.05s;
+  margin-top: 30px;
+}
+
+.form-confirm:hover {
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+.is-invalid {
+  background-color: #532b2b !important;
+}
