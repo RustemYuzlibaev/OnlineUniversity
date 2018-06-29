@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../Assets/css/start/welcomepage.min.css';
 
 class Footer extends Component {
   render() {

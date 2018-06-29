@@ -18,6 +18,10 @@ const ProfileSchema = new Schema({
   location: {
     type: String
   },
+  status: {
+    type: String,
+    required: true
+  },
   profession: {
     type: String
   },
