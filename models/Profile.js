@@ -15,6 +15,10 @@ const ProfileSchema = new Schema({
     required: true,
     max: 40
   },
+  status: {
+    type: String,
+    required: true
+  },
   location: {
     type: String
   },
@@ -49,8 +53,9 @@ const ProfileSchema = new Schema({
         type: Boolean,
         default: false
       },
-      decription: {
-        type: String
+      description: {
+        type: String,
+        required: true
       }
     }
   ],
@@ -68,19 +73,17 @@ const ProfileSchema = new Schema({
         type: String,
         required: true
       },
-      decription: {
-        type: String
+      description: {
+        type: String,
+        required: true
       }
     }
   ],
-  links: {
+  social: {
     vk: {
       type: String
     },
     telegram: {
-      type: String
-    },
-    github: {
       type: String
     }
   },

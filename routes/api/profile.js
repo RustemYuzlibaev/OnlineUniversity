@@ -96,7 +96,7 @@ router.post(
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
 
-    //Check Validation
+    // Check Validation
     if (!isValid) {
       // Return any errors with 400 status
       return res.status(400).json(errors);
@@ -106,20 +106,20 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.status) profileFields.status = req.body.status;
     if (req.body.website) profileFields.website = req.body.website;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.profession) profileFields.profession = req.body.profession;
-    if (req.body.handle) profileFields.handle = req.body.handle;
+
     // Skills - Split into array
     if (typeof req.body.skills !== 'undefined') {
       profileFields.skills = req.body.skills.replace(/\s+/g, '').split(',');
     }
     // Links
-    profileFields.links = {};
-    if (req.body.vk) profileFields.links.vk = req.body.vk;
-    if (req.body.github) profileFields.links.github = req.body.github;
-    if (req.body.telegram) profileFields.links.telegram = req.body.telegram;
+    profileFields.social = {};
+    if (req.body.vk) profileFields.social.vk = req.body.vk;
+    if (req.body.telegram) profileFields.social.telegram = req.body.telegram;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
@@ -133,7 +133,7 @@ router.post(
         // Create
 
         // Check if handle exists
-        Profile.find({ handle: profileFields.handle }).then(profile => {
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
             errors.handle = 'This handle already exists';
             res.status(400).json(errors);
@@ -251,7 +251,7 @@ router.delete(
   }
 );
 
-// @route   DELETE api/profile/education/:edu_id
+// @route   DELETE api/profile
 // desc     Delete user and profile
 // access   Private
 router.delete(

@@ -10,7 +10,6 @@ const Profile = require('../../models/Profile');
 
 // Validation
 const validatePostInput = require('../../validation/post');
-const validateCommentInput = require('../../validation/comment');
 
 // @route   GET api/posts
 // @desc    Get posts
@@ -29,7 +28,7 @@ router.get('/:id', (req, res) => {
   Post.findById(req.params.id)
     .then(post => res.json(post))
     .catch(err =>
-      res.status(404).json({ nopostfound: 'No post found with this id' })
+      res.status(404).json({ nopostfound: 'No post found with this ID' })
     );
 });
 
@@ -109,7 +108,7 @@ router.post(
 );
 
 // @route   POST api/post/unlike/:id
-// @desc    Like post
+// @desc    Unlike post
 // @access  Private
 router.post(
   '/unlike/:id',
@@ -148,7 +147,7 @@ router.post(
   '/comment/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateCommentInput(req.body);
+    const { errors, isValid } = validatePostInput(req.body);
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
@@ -160,7 +159,7 @@ router.post(
         const newComment = {
           text: req.body.text,
           name: req.body.name,
-          user: req.body.user
+          user: req.user.id
         };
 
         // Add to comments array

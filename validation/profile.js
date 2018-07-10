@@ -6,6 +6,7 @@ module.exports = function validateProfileInput(data) {
 
   data.handle = !isEmpty(data.handle) ? data.handle : '';
   data.skills = !isEmpty(data.skills) ? data.skills : '';
+  data.status = !isEmpty(data.status) ? data.status : '';
 
   if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
     errors.handle = 'Handle needs to be between 2 and 40 characters';
@@ -19,6 +20,10 @@ module.exports = function validateProfileInput(data) {
     errors.skills = 'Skills are required';
   }
 
+  if (Validator.isEmpty(data.status)) {
+    errors.status = 'Status is required';
+  }
+
   if (!isEmpty(data.website)) {
     if (!Validator.isURL(data.website)) {
       errors.website = 'Not a valid URL';
@@ -28,12 +33,6 @@ module.exports = function validateProfileInput(data) {
   if (!isEmpty(data.vk)) {
     if (!Validator.isURL(data.vk)) {
       errors.vk = 'Not a valid URL';
-    }
-  }
-
-  if (!isEmpty(data.github)) {
-    if (!Validator.isURL(data.github)) {
-      errors.github = 'Not a valid URL';
     }
   }
 
